@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Архитектура власти: Рекалибровка</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --parchment: #F5F0EA;
+      --white: #FFFFFF;
+      --dark: #1C1929;
+      --burgundy: #852040;
+      --gold: #C09A50;
+      --text: #2C2C3A;
+      --text-light: #6B6B7A;
+    }
+
+    body {
+      background: var(--parchment);
+      font-family: 'Inter', sans-serif;
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    .document {
+      max-width: 780px;
+      margin: 0 auto;
+      background: var(--white);
+      box-shadow: 0 4px 80px rgba(0,0,0,0.10);
+    }
+
+    /* ── HERO ── */
+    .hero {
+      background: var(--dark);
+      padding: 80px 70px 72px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-photo-hint {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(160deg, #2A1040 0%, #3D1030 55%, #1C1020 100%);
+      opacity: 0.55;
+    }
+
+    .hero-photo-label {
+      position: absolute;
+      top: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 1px dashed rgba(192,154,80,0.35);
+      color: rgba(192,154,80,0.45);
+      font-size: 9px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      padding: 5px 16px;
+      white-space: nowrap;
+      z-index: 2;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-subtitle {
+      font-size: 13px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.55);
+      letter-spacing: 0.3px;
+      max-width: 400px;
+      margin: 0 auto 36px;
+      line-height: 1.8;
+    }
+
+    .hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 56px;
+      font-weight: 600;
+      color: #FFFFFF;
+      line-height: 1.1;
+      margin-bottom: 20px;
+      letter-spacing: -0.5px;
+    }
+
+    .hero h1 em {
+      color: var(--gold);
+      font-style: italic;
+    }
+
+    .hero-tagline {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 21px;
+      font-weight: 400;
+      font-style: italic;
+      color: rgba(255,255,255,0.80);
+      margin-bottom: 36px;
+    }
+
+    .hero-meta {
+      font-size: 11px;
+      color: rgba(255,255,255,0.40);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .hero-details {
+      font-size: 13px;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 44px;
+    }
+
+    .btn {
+      display: inline-block;
+      background: var(--burgundy);
+      color: #FFFFFF;
+      padding: 15px 44px;
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      text-decoration: none;
+    }
+
+    /* ── SECTIONS ── */
+    .section {
+      padding: 64px 72px;
+    }
+
+    .section-alt {
+      background: var(--parchment);
+    }
+
+    .section-dark {
+      background: var(--dark);
+      color: #FFFFFF;
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin: 0 72px;
+      padding: 6px 0;
+    }
+
+    .divider::before,
+    .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: #E5DDD4;
+    }
+
+    .divider-gem {
+      color: var(--gold);
+      font-size: 9px;
+    }
+
+    /* ── TYPE ── */
+    .section-label {
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #A07A30;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 38px;
+      font-weight: 600;
+      color: var(--burgundy);
+      line-height: 1.15;
+      margin-bottom: 28px;
+    }
+
+    .section-dark h2 {
+      color: var(--gold);
+    }
+
+    p {
+      font-size: 15px;
+      line-height: 1.85;
+      color: var(--text);
+      margin-bottom: 14px;
+    }
+
+    .section-dark p {
+      color: rgba(255,255,255,0.68);
+    }
+
+    strong {
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .section-dark strong {
+      color: rgba(255,255,255,0.92);
+    }
+
+    /* ── PAIN LIST ── */
+    .pain-list {
+      list-style: none;
+      margin-top: 4px;
+    }
+
+    .pain-list li {
+      font-size: 15px;
+      line-height: 1.8;
+      padding: 16px 0 16px 26px;
+      border-bottom: 1px solid #EDE7DF;
+      position: relative;
+      color: var(--text);
+    }
+
+    .pain-list li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--burgundy);
+      font-weight: 700;
+    }
+
+    .pain-list li:last-child { border-bottom: none; }
+
+    /* ── ARROW LIST ── */
+    .arrow-list {
+      list-style: none;
+      margin-top: 10px;
+    }
+
+    .arrow-list li {
+      font-size: 15px;
+      line-height: 1.75;
+      padding: 9px 0 9px 28px;
+      position: relative;
+      color: var(--text);
+    }
+
+    .arrow-list li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--gold);
+      font-size: 13px;
+      top: 11px;
+    }
+
+    .section-dark .arrow-list li {
+      color: rgba(255,255,255,0.70);
+    }
+
+    /* ── HIGHLIGHT ── */
+    .highlight {
+      background: var(--dark);
+      margin: 32px -72px 0;
+      padding: 40px 125px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-style: italic;
+      font-weight: 400;
+      color: rgba(255,255,255,0.93);
+      letter-spacing: 0.02em;
+      line-height: 1.65;
+    }
+
+    /* ── ABOUT GRID ── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 263px;
+      gap: 52px;
+      align-items: start;
+    }
+
+    .photo-placeholder {
+      width: 263px;
+      margin-top: 96px;
+      margin-right: -72px;
+      align-self: stretch;
+      overflow: hidden;
+      display: block;
+      flex-shrink: 0;
+    }
+
+    .section-dark {
+      overflow: hidden;
+    }
+
+    .photo-placeholder-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 1px solid rgba(192,154,80,0.3);
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .photo-placeholder-icon svg {
+      opacity: 0.3;
+    }
+
+    .photo-placeholder-text {
+      font-size: 9px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: rgba(192,154,80,0.4);
+    }
+
+    /* ── STATS ── */
+    .stats-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      margin-top: 32px;
+    }
+
+    .stat {
+      padding: 20px 0;
+      border-top: 1px solid rgba(192,154,80,0.25);
+    }
+
+    .stat:nth-child(odd) { padding-right: 24px; }
+    .stat:nth-child(even) { padding-left: 24px; border-left: 1px solid rgba(192,154,80,0.25); }
+
+    .stat-number {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 40px;
+      font-weight: 600;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 5px;
+    }
+
+    .stat-label {
+      font-size: 13px;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.5;
+    }
+
+    /* ── TIMELINE ── */
+    .timeline {
+      position: relative;
+      padding-left: 36px;
+      margin-top: 12px;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 6px;
+      top: 10px;
+      bottom: 10px;
+      width: 1px;
+      background: linear-gradient(to bottom, var(--burgundy) 0%, rgba(133,32,64,0.1) 100%);
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 36px;
+    }
+
+    .timeline-item:last-child { margin-bottom: 0; }
+
+    .timeline-dot {
+      position: absolute;
+      left: -32px;
+      top: 6px;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--burgundy);
+      border: 2px solid var(--parchment);
+    }
+
+    .timeline-day {
+      font-size: 10px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: #A07A30;
+      font-weight: 600;
+      margin-bottom: 3px;
+    }
+
+    .timeline-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--dark);
+      margin-bottom: 6px;
+      line-height: 1.3;
+    }
+
+    .timeline-text {
+      font-size: 14px;
+      color: var(--text-light);
+      line-height: 1.75;
+    }
+
+    .arrow-list-result li::before {
+      color: var(--burgundy);
+    }
+
+    /* ── TOOLS LIST ── */
+    .tools-list {
+      list-style: none;
+      margin-top: 14px;
+      border-top: 1px solid #EDE7DF;
+    }
+
+    .tools-list li {
+      padding: 11px 0;
+      border-bottom: 1px solid #EDE7DF;
+      font-size: 14px;
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .tools-list li strong {
+      color: var(--burgundy);
+    }
+
+    /* ── CTA ── */
+    .cta-section {
+      background: var(--burgundy);
+      padding: 68px 72px;
+      text-align: center;
+    }
+
+    .cta-section h2 {
+      color: #FFFFFF;
+      font-size: 42px;
+      margin-bottom: 14px;
+    }
+
+    .cta-price {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 34px;
+      font-weight: 300;
+      color: var(--gold);
+      margin-bottom: 6px;
+    }
+
+    .cta-details {
+      font-size: 13px;
+      color: rgba(255,255,255,0.50);
+      margin-bottom: 36px;
+    }
+
+    .btn-light {
+      display: inline-block;
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.60);
+      color: #FFFFFF;
+      padding: 15px 44px;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      text-decoration: none;
+    }
+
+    .cta-tagline {
+      margin-top: 32px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px;
+      font-style: italic;
+      color: rgba(255,255,255,0.60);
+      letter-spacing: 0.06em;
+    }
+
+    /* ── CONTACTS ── */
+    .contacts {
+      padding: 36px 72px;
+      background: var(--dark);
+    }
+
+    .contacts p {
+      font-size: 12px;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 6px;
+      line-height: 1.7;
+    }
+
+    .contacts a {
+      color: rgba(255,255,255,0.35);
+      text-decoration: none;
+    }
+
+    /* ── PRINT ── */
+    @media print {
+      body { background: white; }
+      .document { box-shadow: none; max-width: 100%; }
+    }
+
+    @media (max-width: 620px) {
+      .hero { padding: 56px 32px 56px; }
+      .hero h1 { font-size: 38px; }
+      .section { padding: 48px 32px; }
+      .divider { margin: 0 32px; }
+      .about-grid { grid-template-columns: 1fr; }
+      .photo-placeholder { width: 100%; aspect-ratio: 3/2; }
+      .stats-row { grid-template-columns: 1fr 1fr; }
+      .cta-section, .contacts { padding: 48px 32px; }
+    }
+  </style>
+</head>
+<body>
+<div class="document">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-photo-hint"></div>
+    <div class="hero-content">
+      <h1>Архитектура власти:<br><em>Рекалибровка</em></h1>
+      <div class="hero-subtitle">
+        Тренинг для женщин, работающих в мужской среде<br>и вынужденных конкурировать за своё место
+      </div>
+      <div class="hero-tagline">Верни себе контроль всего за 20 минут в день</div>
+      <div class="hero-meta" style="margin-bottom: 42px;">Старт 11 мая &nbsp;·&nbsp; 8 дней &nbsp;·&nbsp; $50 / 4000 ₽</div>
+      <a href="https://t.me/helga_fetishwave" class="btn">Записаться →</a>
+    </div>
+  </div>
+
+  <!-- ЗНАКОМО -->
+  <div class="section">
+    <div class="section-label">Узнаёшь себя?</div>
+    <h2>Тебе это знакомо</h2>
+    <ul class="pain-list">
+      <li>Ты сидишь на совещании. Говоришь дельную вещь. Мужчина рядом повторяет то же самое через пять минут — и слышат его.</li>
+      <li>Ты закрываешь сделку. Всё прошло хорошо, но ты почему-то согласилась на условия хуже, чем планировала. Опять.</li>
+      <li>Ты руководишь командой. Делаешь больше всех — объясняешь, поддерживаешь, сглаживаешь. А признание и повышение получает кто-то другой.</li>
+    </ul>
+  </div>
+
+
+  <!-- ПОЧЕМУ -->
+  <div class="section section-alt" style="padding-bottom: 0;">
+    <div class="section-label">Причина</div>
+    <h2>Почему так происходит?</h2>
+    <p>В мужской профессиональной среде женщины часто действуют не из внутренней уверенности и выбора, а из необходимости подстраиваться. Это проявляется как:</p>
+    <ul class="arrow-list">
+      <li>Ты часто вынужденно объясняешь очевидные вещи</li>
+      <li>Соглашаешься на лишнюю нагрузку, потому что отказ кажется опасным</li>
+      <li>Ищешь одобрения от руководителя, партнёра, клиента — вместо того, чтобы опираться на себя</li>
+      <li>Стараешься быть удобной и называешь это «профессионализмом»</li>
+      <li>Отдаёшь больше внимания, поддержки и энергии, чем получаешь в ответ</li>
+      <li>Копируешь мужскую агрессию как способ удержать позицию —<br><strong style="text-transform:uppercase; letter-spacing:0.5px;">И ЭТО ТОЖЕ НЕ РАБОТАЕТ.</strong></li>
+    </ul>
+    <div class="highlight">
+      Дело не в&nbsp;компетенциях. Компетенции у тебя есть. Дело в&nbsp;поведенческих сигналах — на встречах, в&nbsp;переговорах, в&nbsp;переписке. Они едва заметны, но транслируют окружающим неуверенность, покорность и слабые границы.
+    </div>
+  </div>
+
+  <!-- ЧТО ТАКОЕ -->
+  <div class="section" style="padding-top: 80px;">
+    <div class="section-label">О тренинге</div>
+    <h2>Что такое «Архитектура власти: Рекалибровка»</h2>
+    <p>Это 8-дневный тренинг, в котором ты меняешь <strong>микросигналы поведения</strong>, формирующие твою позицию.</p>
+    <p>Здесь нет эзотерики и «женской энергии», копирования мужского поведения, попыток заслужить уважение удобством.</p>
+    <p><strong>Здесь есть конкретные инструменты</strong>, которые помогают женщине в мужской среде перестать терять свою позицию, меньше уступать и выстраивать коммуникацию эффективнее.</p>
+  </div>
+
+
+  <!-- ДЛЯ КОГО -->
+  <div class="section section-alt">
+    <div class="section-label">Аудитория</div>
+    <h2>Для кого этот тренинг</h2>
+    <p>Этот тренинг точно <strong>для тебя</strong>, если ты:</p>
+    <ul class="arrow-list">
+      <li>Работаешь в мужской среде и ощущаешь это как постоянную борьбу за своё место</li>
+      <li>Замечаешь, что твои идеи звучат весомее, когда их повторяет мужчина</li>
+      <li>Понимаешь, что в переговорах с мужчинами уступаешь там, где не хотела</li>
+      <li>Берёшь на себя лишнюю нагрузку, потому что отказ кажется рискованным</li>
+      <li>Устала постоянно балансировать между «женственностью» и «профессионализмом»</li>
+    </ul>
+  </div>
+
+
+  <!-- РЕЗУЛЬТАТ -->
+  <div class="section" style="background: rgba(133,32,64,0.04);">
+    <div class="section-label">Результат</div>
+    <h2>Что меняется за 8 дней</h2>
+    <p>После завершения тренинга участницы замечают что:</p>
+    <ul class="arrow-list arrow-list-result">
+      <li>Их внимательнее слушают — на встречах, в переговорах, в общении с руководством</li>
+      <li>Им проще удерживать свою позицию и не скатываться в лишние объяснения</li>
+      <li>Они меньше уступают там, где раньше теряли вес, чтобы сохранить контакт или избежать напряжения</li>
+      <li>В мужской среде обретают больше внутренней собранности, ясности и опоры</li>
+    </ul>
+  </div>
+
+
+  <!-- ОБО МНЕ -->
+  <div class="section section-dark" style="padding-right: 0;">
+    <div class="about-grid">
+      <div>
+        <div class="section-label">Автор</div>
+        <h2>Почему я?</h2>
+        <p>Я много лет работаю с динамикой власти — со стороны системы власти и со стороны корпоративной среды.</p>
+        <p>Власть в любой системе строится не на количестве усилий, а на поведенческих сигналах, управлении вниманием и умении удерживать рамку. <strong>Этому почти никто не учит.</strong></p>
+        <p>Я вижу, где именно ты теряешь позицию — и знаю, какой сигнал нужно изменить первым. Именно с этого мы начинаем на стартовом вебинаре.</p>
+        <div class="stats-row">
+          <div class="stat">
+            <div class="stat-number">15</div>
+            <div class="stat-label">лет работы с динамикой доминирования</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number">10</div>
+            <div class="stat-label">лет в управлении командами и компаниями</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number">200+</div>
+            <div class="stat-label">учениц в личном менторстве</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number">500+</div>
+            <div class="stat-label">частных консультаций по психологии власти</div>
+          </div>
+        </div>
+      </div>
+      <div class="photo-placeholder">
+        <img src="About_me.png" alt="Автор" style="width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; mix-blend-mode: lighten;">
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ПРОГРАММА -->
+  <div class="section section-alt">
+    <div class="section-label">Программа</div>
+    <h2>Как это работает</h2>
+    <div class="timeline">
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-day">До старта</div>
+        <div class="timeline-title">Диагностика</div>
+        <div class="timeline-text">Проходишь тест, чтобы определить свой стиль общения и поведения.</div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-day">День 1</div>
+        <div class="timeline-title">Стартовый вебинар</div>
+        <div class="timeline-text">Разбор результатов диагностики. Микросигналы власти — что именно в коммуникации формирует статус. После вебинара начинаешь вести дневник микронаблюдений.</div>
+      </div>
+
+      <div class="timeline-item" style="margin-bottom: 52px;">
+        <div class="timeline-dot"></div>
+        <div class="timeline-day">Дни 2–6</div>
+        <div class="timeline-title">Практика доминирования и контроля</div>
+        <div class="timeline-text">Каждое утро — конкретная техника дня. 20 минут. Каждое упражнение усиливает предыдущее, к концу недели складывается цельная манера поведения.</div>
+        <ul class="tools-list">
+          <li><strong>Пауза влияния</strong> — как забрать инициативу в разговоре</li>
+          <li><strong>Экономика одобрения</strong> — перестаём «покупать» лояльность лишними усилиями</li>
+          <li><strong>Рамка разговора</strong> — удержание своей повестки, даже если собеседник давит</li>
+          <li><strong>Минус объяснения</strong> — сокращаем оправдания на 30%</li>
+          <li><strong>Точка решения</strong> — как ставить финальную точку без пространства для сомнений</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-day">День 7</div>
+        <div class="timeline-title">Закрепление</div>
+        <div class="timeline-text">Фиксируешь прогресс, пишешь вопросы для финальной встречи.</div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-day">День 8</div>
+        <div class="timeline-title">Финальный вебинар</div>
+        <div class="timeline-text">Разбор твоих результатов. Рекомендации по продолжению. Ответы на вопросы.</div>
+      </div>
+
+    </div>
+    <p style="margin-top: 36px; font-size: 13px; color: var(--text-light); line-height: 1.8;">
+      Дополнительно: закрытый чат с участницами · обратная связь от автора · доступ к чату 1 неделю после окончания
+    </p>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-section">
+    <h2>Старт 11 мая. 8 дней.</h2>
+    <div class="cta-price">$50 / 4000 ₽</div>
+    <div class="cta-details">2 вебинара + ежедневные практики + закрытый чат</div>
+    <a href="https://t.me/helga_fetishwave" class="btn-light">Записаться →</a>
+    <div class="cta-tagline">Хватит подстраиваться. Начни задавать правила.</div>
+  </div>
+
+  <!-- CONTACTS -->
+  <div class="contacts">
+    <p>Запись и вопросы: Telegram [ссылка] · Email [адрес]</p>
+    <p>Публичная оферта [ссылка] · Политика конфиденциальности [ссылка]</p>
+  </div>
+
+</div>
+</body>
+</html>
